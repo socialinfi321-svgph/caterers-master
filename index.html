@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -50,6 +49,10 @@
       text-align: left;
       position: relative;
       margin-bottom: 10px;
+
+      /* ⭐⭐ FIXED SIZE BOX ⭐⭐ */
+      height: 180px;        /* Box fixed height */
+      overflow: hidden;     /* Extra text hide */
     }
 
     .copy-btn {
@@ -173,14 +176,8 @@
     }
 
     @keyframes popupSlide {
-      from {
-        transform: translateY(-30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(-30px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
     }
 
     .popup-message {
@@ -224,7 +221,6 @@
   </div>
 
   <script>
-    // ✅ Updated API URL
     const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwptdUDfUTQ05P2BzrOrVGqxAUDUwvzxYSnUTLN1piAViNybEWRJXPDaE11BgKBqqo/exec';
 
     const reviewText = document.getElementById('reviewText');
@@ -232,170 +228,98 @@
     const googleBtn = document.getElementById('googleBtn');
     const popupOverlay = document.getElementById('popupOverlay');
 
-    // ✅ State management
     let currentReviewId = null;
     let copyClicked = false;
     let reviewReserved = false;
 
-    // ✅ Auto-hide popup after 2 seconds
     function showPopup() {
       popupOverlay.classList.add('show');
-      setTimeout(() => {
-        popupOverlay.classList.remove('show');
-      }, 2000);
+      setTimeout(() => popupOverlay.classList.remove('show'), 2000);
     }
 
     async function fetchReview() {
       try {
         const response = await fetch(SHEET_API_URL + '?action=reserve');
-        if (!response.ok) throw new Error('Failed to fetch review');
-
-        const textData = await response.text();
-        console.log('Raw response:', textData);
+        const raw = await response.text();
 
         let data;
-        try {
-          data = JSON.parse(textData);
-        } catch {
-          reviewText.innerText = textData.trim() || "No review text found.";
-          setupCopyButton(textData.trim());
+        try { data = JSON.parse(raw); }
+        catch {
+          reviewText.innerText = raw.trim() || "No review text found.";
+          setupCopyButton(raw.trim());
           return;
         }
 
         if (data.error) {
           reviewText.innerText = data.error;
           copyBtn.style.display = "none";
-        } else if (data.review) {
+        } else {
           currentReviewId = data.id;
           reviewReserved = true;
           reviewText.innerText = data.review;
           setupCopyButton(data.review);
-          
-          // ✅ Start 60-second timer to release if not used
-          setTimeout(() => {
-            if (!copyClicked && reviewReserved) {
-              releaseReview();
-            }
-          }, 60000); // 60 seconds
-        } else {
-          reviewText.innerText = "No reviews found.";
-          copyBtn.style.display = "none";
-        }
 
-      } catch (err) {
-        console.error('Error:', err);
-        reviewText.innerText = "Error fetching review. Please try again later.";
-        copyBtn.style.display = "none";
+          setTimeout(() => {
+            if (!copyClicked && reviewReserved) releaseReview();
+          }, 60000);
+        }
+      } catch {
+        reviewText.innerText = "Error fetching review.";
       }
     }
 
     async function releaseReview() {
       if (!currentReviewId || !reviewReserved) return;
-      
-      try {
-        console.log('⏰ Releasing reserved review:', currentReviewId);
-        await fetch(`${SHEET_API_URL}?action=release&id=${currentReviewId}`);
-        reviewReserved = false;
-      } catch (err) {
-        console.error('Error releasing review:', err);
-      }
+      navigator.sendBeacon(`${SHEET_API_URL}?action=release&id=${currentReviewId}`);
+      reviewReserved = false;
     }
 
     function setupCopyButton(textToCopy) {
       const newBtn = copyBtn.cloneNode(true);
-      copyBtn.parentNode.replaceChild(newBtn, copyBtn);
+      copyBtn.replaceWith(newBtn);
 
-      newBtn.addEventListener("click", async () => {
+      newBtn.onclick = async () => {
         try {
           await navigator.clipboard.writeText(textToCopy);
-          newBtn.innerText = "Copied ✓";
-          
-          // ✅ Copy button click track karo aur Google button enable karo
-          copyClicked = true;
-          googleBtn.classList.remove('disabled');
-          console.log('✅ Copy button clicked! Google button enabled.');
-          
-          setTimeout(() => (newBtn.innerText = "Copy Text"), 2000);
         } catch {
-          const textarea = document.createElement("textarea");
-          textarea.value = textToCopy;
-          textarea.style.position = "fixed";
-          textarea.style.left = "-9999px";
-          document.body.appendChild(textarea);
-          textarea.select();
+          const ta = document.createElement("textarea");
+          ta.value = textToCopy;
+          document.body.appendChild(ta);
+          ta.select();
           document.execCommand("copy");
-          document.body.removeChild(textarea);
-          newBtn.innerText = "Copied ✓";
-          
-          // ✅ Copy button click track karo (fallback method)
-          copyClicked = true;
-          googleBtn.classList.remove('disabled');
-          console.log('✅ Copy button clicked (fallback)! Google button enabled.');
-          
-          setTimeout(() => (newBtn.innerText = "Copy Text"), 2000);
+          document.body.removeChild(ta);
         }
-      });
+
+        newBtn.innerText = "Copied ✓";
+        setTimeout(() => newBtn.innerText = "Copy Text", 2000);
+
+        copyClicked = true;
+        googleBtn.classList.remove('disabled');
+      };
     }
 
-    // ✅ Google button click handler with popup
-    googleBtn.addEventListener('click', async (e) => {
+    googleBtn.onclick = async (e) => {
       e.preventDefault();
-      
-      console.log('Google button clicked');
-      console.log('Copy clicked:', copyClicked);
-      console.log('Review ID:', currentReviewId);
-      
-      // ✅ Agar copy nahi kiya to popup dikhao
-      if (!copyClicked) {
-        showPopup();
-        console.log('⚠️ Popup shown - Copy button not clicked yet');
-        return;
-      }
-      
-      // ✅ Agar copy click hua hai aur review ID hai
-      if (copyClicked && currentReviewId && reviewReserved) {
+
+      if (!copyClicked) return showPopup();
+
+      if (currentReviewId && reviewReserved) {
         try {
-          console.log('✅ Marking review as used...');
-          
-          // Backend ko batao ki review use ho gaya
-          const response = await fetch(`${SHEET_API_URL}?action=confirmUsed&id=${currentReviewId}`);
-          const result = await response.json();
-          
-          console.log('Mark as used result:', result);
-          
-          if (result.success) {
-            console.log('✅ Review successfully marked as used!');
-            reviewReserved = false;
-          }
-        } catch (err) {
-          console.error('Error marking review as used:', err);
-        }
+          await fetch(`${SHEET_API_URL}?action=confirmUsed&id=${currentReviewId}`);
+          reviewReserved = false;
+        } catch {}
       }
-      
-      // Google Review page kholo
+
       window.open('https://reviewthis.biz/ec5fef79', '_blank');
-    });
+    };
 
-    // ✅ Popup overlay click to close
-    popupOverlay.addEventListener('click', (e) => {
-      if (e.target === popupOverlay) {
-        popupOverlay.classList.remove('show');
-      }
-    });
-
-    // ✅ Page unload pe review release karo (agar unused hai)
     window.addEventListener('beforeunload', () => {
       if (!copyClicked && reviewReserved && currentReviewId) {
-        // Use sendBeacon for reliable sending during page unload
         navigator.sendBeacon(`${SHEET_API_URL}?action=release&id=${currentReviewId}`);
       }
     });
 
-    // Page load hone pe review fetch karo
     fetchReview();
   </script>
 </body>
 </html>
-
-
-
