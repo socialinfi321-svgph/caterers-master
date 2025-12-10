@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,7 +17,7 @@
       font-family: Arial, Helvetica, sans-serif;
       background-image: url('https://raw.githubusercontent.com/socialinfi321-svgph/caterers-master/main/1763405516551.jpg');
       background-size: cover;
-      background-position: center;
+      background-position: center;                      
       background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
@@ -26,6 +25,196 @@
       justify-content: flex-start;
       text-align: center;
       padding-top: 197px;
+      transition: background-color 0.3s, filter 0.3s;
+    }
+
+    body.dark-mode {
+      filter: brightness(0.7);
+    }
+
+    body.dark-mode::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Hamburger Menu Button - Simple 3 Lines */
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      z-index: 1001;
+      transition: 0.3s;
+    }
+
+    .menu-btn span {
+      width: 28px;
+      height: 3px;
+      background: #333;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    body.dark-mode .menu-btn span {
+      background: #fff;
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 280px;
+      height: 100%;
+      background: white;
+      z-index: 1000;
+      box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+      transition: left 0.3s ease;
+      overflow-y: auto;
+      padding: 80px 25px 25px 25px;
+    }
+
+    body.dark-mode .side-menu {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .side-menu.open {
+      left: 0;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    .menu-overlay.show {
+      display: block;
+    }
+
+    .menu-content h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    body.dark-mode .menu-content h3 {
+      color: #fff;
+    }
+
+    .menu-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    body.dark-mode .menu-content p {
+      color: #ccc;
+    }
+
+    /* Dark/Light Mode Toggle */
+    .mode-toggle {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+
+    body.dark-mode .mode-toggle {
+      border-top: 1px solid #444;
+    }
+
+    .mode-toggle h4 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    body.dark-mode .mode-toggle h4 {
+      color: #fff;
+    }
+
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toggle-switch span {
+      font-size: 14px;
+      color: #666;
+    }
+
+    body.dark-mode .toggle-switch span {
+      color: #aaa;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
     }
 
     .subtitle {
@@ -33,15 +222,23 @@
       color: #333;
       margin-bottom: 15px;
       font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.dark-mode .subtitle {
+      color: #fff;
     }
 
     .review-box {
-      width: 90%;
+      position: absolute;
+      width: 95%;
       max-width: 650px;
+      max-height: 100;
       background: rgba(255, 255, 255, 0.75);
       border-radius: 25px;
       padding: 20px 24px 50px 24px;
-      font-size: 15px;
+      font-size: 13px;
       font-family: 'Saira', Arial, Helvetica, sans-serif;
       font-weight: 800;
       color: #333;
@@ -50,11 +247,32 @@
       text-align: left;
       position: relative;
       margin-bottom: 10px;
+      z-index: 1;
+    }
+
+    body.dark-mode .review-box {
+      background: rgba(40, 40, 40, 0.85);
+      color: #fff;
+    }
+
+    .text-limit {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .expand-dots {
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      margin-top: 3px;
+      display: inline-block;
     }
 
     .copy-btn {
       position: absolute;
-      bottom: 8px;
+      bottom: 10px;
       left: 24px;
       background: #1976d2;
       color: white;
@@ -87,6 +305,8 @@
       box-shadow: 0 3px 12px rgba(0,0,0,0.25), 0 0 8px rgba(66, 133, 244, 0.3);
       cursor: pointer;
       transition: 0.3s;
+      position: relative;
+      z-index: 1;
     }
 
     .google-btn.disabled {
@@ -102,6 +322,12 @@
       margin-top: 40px;
       text-align: center;
       color: #000;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.dark-mode .star-section {
+      color: #fff;
     }
 
     .star-section .top-text {
@@ -110,6 +336,10 @@
       margin-bottom: 2px;
       color: #000;
       font-weight: 500;
+    }
+
+    body.dark-mode .star-section .top-text {
+      color: #fff;
     }
 
     .stars {
@@ -126,21 +356,23 @@
       font-weight: 500;
     }
 
-    .thanks {
-      margin-top: 30px;
-      font-size: 22px;
-      font-family: 'Brush Script MT', cursive;
-      color: #111;
-      text-align: center;
+    body.dark-mode .star-section .bottom-text {
+      color: #fff;
     }
 
-    .policy {
-      font-size: 12px;
-      color: #3b2121;
+    .thanks {
+      margin-top: 30px;
+      font-size: 28px;
+      font-family: 'Brush Script MT', cursive;
+      color: #000;
       text-align: center;
-      margin-top: 3px;
-      line-height: 1.4;
-      max-width: 650px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.dark-mode .thanks {
+      color: #fff;
     }
 
     /* Popup Styles */
@@ -152,7 +384,7 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
+      z-index: 2000;
       justify-content: center;
       align-items: center;
     }
@@ -172,15 +404,13 @@
       animation: popupSlide 0.25s ease-out;
     }
 
+    body.dark-mode .popup-box {
+      background: #2a2a2a;
+    }
+
     @keyframes popupSlide {
-      from {
-        transform: translateY(-30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .popup-message {
@@ -189,19 +419,64 @@
       font-weight: 600;
       line-height: 1.4;
     }
+
+    body.dark-mode .popup-message {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Hamburger Menu Button - Only 3 Lines -->
+  <button class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Menu Overlay -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- Side Menu -->
+  <div class="side-menu" id="sideMenu">
+    <div class="menu-content">
+      <h3>Policy & Information</h3>
+      <p>All reviews are voluntary, and for feedback purposes only.</p>
+      <p>By using this page, you agree that reviews reflect personal experience only.</p>
+      <p>.....................................</p>
+      <p>This is a paid review promotion designed to help both new and established brands strengthen their market visibility and consumer trust.</p>
+      <p>In today's competitive environment, obtaining genuine reviews has become increasingly difficult, even for brands that provide excellent products and services.</p>
+      <p>Through this promotional service, we help highlight brands that are performing well</p>
+      <p>but are not receiving sufficient customer feedback due to market competition or being newly launched.</p>
+      <p>We also support older, established brands in maintaining their credibility and trust among consumers</p>
+      <p>by ensuring continuous engagement through transparent, paid promotional reviews.</p>
+      <p>We strictly ensure that all brands we promote are trustworthy, reliable, and operate professionally.</p>
+      <p>Our goal is to support genuine brands while maintaining honesty, transparency, and fairness for consumers</p>
+      
+      <!-- Dark/Light Mode Toggle -->
+      <div class="mode-toggle">
+        <h4>Theme</h4>
+        <div class="toggle-switch">
+          <span>Light</span>
+          <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
+          <span>Dark</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="subtitle">To give review, copy the text below 👇</div>
 
   <div class="review-box" id="reviewBox">
-    <p id="reviewText">Loading review...</p>
+    <p id="reviewText" class="text-limit">Loading review...</p>
+    <span id="expandDots" class="expand-dots">.........</span>
     <button class="copy-btn" id="copyBtn">Copy Text</button>
   </div>
 
-  <a id="googleBtn" class="google-btn disabled">
-    Google Reviews
-  </a>
+  <a id="googleBtn" class="google-btn disabled">Google Reviews</a>
 
   <div class="star-section">
     <span class="top-text">Only give</span>
@@ -211,94 +486,123 @@
 
   <div class="thanks">Thanks for supporting</div>
 
-  <div class="policy">
-    <p>All reviews are voluntary, and for feedback purposes only.</p>
-    <p>By using this page, you agree that reviews reflect personal experience only.</p>
-  </div>
-
-  <!-- Popup Overlay -->
   <div class="popup-overlay" id="popupOverlay">
     <div class="popup-box">
       <div class="popup-message">पहले Copy Text बटन पर क्लिक करें</div>
     </div>
   </div>
 
-  <script>
-    // ✅ Updated API URL
+<script>
     const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwm0nRKWlgy6d0fQ56GRqJba31rjE3_Ar_cEHtZBXC62qXPkPNyaIlT9o0DbJ33QHq_/exec';
 
     const reviewText = document.getElementById('reviewText');
+    const expandDots = document.getElementById('expandDots');
     const copyBtn = document.getElementById('copyBtn');
     const googleBtn = document.getElementById('googleBtn');
     const popupOverlay = document.getElementById('popupOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const darkModeToggle = document.getElementById('darkModeToggle');
 
-    // ✅ State management
     let currentReviewId = null;
     let copyClicked = false;
     let reviewReserved = false;
 
-    // ✅ Auto-hide popup after 2 seconds
+    /* Menu Toggle - Click button pe open/close */
+    menuBtn.addEventListener('click', () => {
+      const isOpen = sideMenu.classList.contains('open');
+      
+      if (isOpen) {
+        sideMenu.classList.remove('open');
+        menuOverlay.classList.remove('show');
+      } else {
+        sideMenu.classList.add('open');
+        menuOverlay.classList.add('show');
+      }
+    });
+
+    /* Overlay click pe close */
+    menuOverlay.addEventListener('click', () => {
+      sideMenu.classList.remove('open');
+      menuOverlay.classList.remove('show');
+    });
+
+    /* Dark Mode Toggle */
+    darkModeToggle.addEventListener('change', () => {
+      if (darkModeToggle.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+
+    /* Load saved dark mode preference */
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.checked = true;
+    }
+
+    /* Expand / Collapse */
+    let expanded = false;
+
+    expandDots.addEventListener("click", () => {
+      if (!expanded) {
+        reviewText.classList.remove("text-limit");
+        expandDots.textContent = " show less";
+        expanded = true;
+      } else {
+        reviewText.classList.add("text-limit");
+        expandDots.textContent = ".........";
+        expanded = false;
+      }
+    });
+
     function showPopup() {
       popupOverlay.classList.add('show');
-      setTimeout(() => {
-        popupOverlay.classList.remove('show');
-      }, 2000);
+      setTimeout(() => popupOverlay.classList.remove('show'), 2000);
     }
 
     async function fetchReview() {
       try {
         const response = await fetch(SHEET_API_URL + '?action=reserve');
-        if (!response.ok) throw new Error('Failed to fetch review');
-
         const textData = await response.text();
-        console.log('Raw response:', textData);
 
         let data;
-        try {
-          data = JSON.parse(textData);
-        } catch {
-          reviewText.innerText = textData.trim() || "No review text found.";
+        try { data = JSON.parse(textData); }
+        catch {
+          reviewText.innerText = textData.trim();
+          reviewText.classList.add("text-limit");
           setupCopyButton(textData.trim());
           return;
         }
 
-        if (data.error) {
-          reviewText.innerText = data.error;
-          copyBtn.style.display = "none";
-        } else if (data.review) {
+        if (data.review) {
           currentReviewId = data.id;
           reviewReserved = true;
+
           reviewText.innerText = data.review;
+          reviewText.classList.add("text-limit");
+          expandDots.style.display = "inline-block";
+
           setupCopyButton(data.review);
-          
-          // ✅ Start 60-second timer to release if not used
+
           setTimeout(() => {
-            if (!copyClicked && reviewReserved) {
-              releaseReview();
-            }
-          }, 60000); // 60 seconds
-        } else {
-          reviewText.innerText = "No reviews found.";
-          copyBtn.style.display = "none";
+            if (!copyClicked && reviewReserved) releaseReview();
+          }, 60000);
         }
 
-      } catch (err) {
-        console.error('Error:', err);
-        reviewText.innerText = "Error fetching review. Please try again later.";
-        copyBtn.style.display = "none";
+      } catch {
+        reviewText.innerText = "Error fetching review.";
       }
     }
 
     async function releaseReview() {
       if (!currentReviewId || !reviewReserved) return;
-      
-      try {
-        console.log('⏰ Releasing reserved review:', currentReviewId);
-        await fetch(`${SHEET_API_URL}?action=release&id=${currentReviewId}`);
-        reviewReserved = false;
-      } catch (err) {
-        console.error('Error releasing review:', err);
-      }
+      await fetch(`${SHEET_API_URL}?action=release&id=${currentReviewId}`);
+      reviewReserved = false;
     }
 
     function setupCopyButton(textToCopy) {
@@ -306,94 +610,39 @@
       copyBtn.parentNode.replaceChild(newBtn, copyBtn);
 
       newBtn.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(textToCopy);
-          newBtn.innerText = "Copied ✓";
-          
-          // ✅ Copy button click track karo aur Google button enable karo
-          copyClicked = true;
-          googleBtn.classList.remove('disabled');
-          console.log('✅ Copy button clicked! Google button enabled.');
-          
-          setTimeout(() => (newBtn.innerText = "Copy Text"), 2000);
-        } catch {
-          const textarea = document.createElement("textarea");
-          textarea.value = textToCopy;
-          textarea.style.position = "fixed";
-          textarea.style.left = "-9999px";
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand("copy");
-          document.body.removeChild(textarea);
-          newBtn.innerText = "Copied ✓";
-          
-          // ✅ Copy button click track karo (fallback method)
-          copyClicked = true;
-          googleBtn.classList.remove('disabled');
-          console.log('✅ Copy button clicked (fallback)! Google button enabled.');
-          
-          setTimeout(() => (newBtn.innerText = "Copy Text"), 2000);
-        }
+        await navigator.clipboard.writeText(textToCopy);
+        newBtn.innerText = "Copied ✓";
+
+        copyClicked = true;
+        googleBtn.classList.remove('disabled');
+
+        setTimeout(() => newBtn.innerText = "Copy Text", 2000);
       });
     }
 
-    // ✅ Google button click handler with popup
     googleBtn.addEventListener('click', async (e) => {
       e.preventDefault();
-      
-      console.log('Google button clicked');
-      console.log('Copy clicked:', copyClicked);
-      console.log('Review ID:', currentReviewId);
-      
-      // ✅ Agar copy nahi kiya to popup dikhao
+
       if (!copyClicked) {
         showPopup();
-        console.log('⚠️ Popup shown - Copy button not clicked yet');
         return;
       }
-      
-      // ✅ Agar copy click hua hai aur review ID hai
+
       if (copyClicked && currentReviewId && reviewReserved) {
-        try {
-          console.log('✅ Marking review as used...');
-          
-          // Backend ko batao ki review use ho gaya
-          const response = await fetch(`${SHEET_API_URL}?action=confirmUsed&id=${currentReviewId}`);
-          const result = await response.json();
-          
-          console.log('Mark as used result:', result);
-          
-          if (result.success) {
-            console.log('✅ Review successfully marked as used!');
-            reviewReserved = false;
-          }
-        } catch (err) {
-          console.error('Error marking review as used:', err);
-        }
+        await fetch(`${SHEET_API_URL}?action=confirmUsed&id=${currentReviewId}`);
+        reviewReserved = false;
       }
-      
-      // Google Review page kholo
+
       window.open('https://reviewthis.biz/9493e7a0', '_blank');
     });
 
-    // ✅ Popup overlay click to close
-    popupOverlay.addEventListener('click', (e) => {
-      if (e.target === popupOverlay) {
-        popupOverlay.classList.remove('show');
-      }
-    });
-
-    // ✅ Page unload pe review release karo (agar unused hai)
     window.addEventListener('beforeunload', () => {
-      if (!copyClicked && reviewReserved && currentReviewId) {
-        // Use sendBeacon for reliable sending during page unload
+      if (!copyClicked && reviewReserved)
         navigator.sendBeacon(`${SHEET_API_URL}?action=release&id=${currentReviewId}`);
-      }
     });
 
-    // Page load hone pe review fetch karo
     fetchReview();
-  </script>
+</script>
+
 </body>
 </html>
-
