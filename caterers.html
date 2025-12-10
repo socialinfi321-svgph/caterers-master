@@ -44,7 +44,7 @@
       z-index: 0;
     }
 
-    /* Hamburger Menu Button - Simple 3 Lines */
+    /* Hamburger Menu Button */
     .menu-btn {
       position: fixed;
       top: 20px;
@@ -74,6 +74,98 @@
     body.dark-mode .menu-btn span {
       background: #fff;
     }
+
+    /* Instruction Button */
+    .instruction-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #0a1628, #1e3a5f);
+      border: 2px solid #00d4ff;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    }
+
+    .instruction-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .instruction-btn::before {
+      content: '🤖';
+      font-size: 24px;
+      filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.8));
+    }
+
+    /* --- UPDATED: Quick Info Box (Vertical 4 Steps) --- */
+    .quick-info-box {
+      position: fixed;
+      bottom: 75px; 
+      right: 20px;
+      width: auto;
+      max-width: 200px;
+      
+      /* Transparency and Blur */
+      background: rgba(10, 22, 40, 0.65); 
+      backdrop-filter: blur(4px);
+      
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      border-radius: 12px;
+      padding: 10px 12px;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transform: translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      
+      /* Flexbox for Vertical Steps */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 5px;
+      text-align: left;
+    }
+
+    .quick-info-box.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .quick-info-box::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 18px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rgba(0, 212, 255, 0.4);
+    }
+
+    .info-step {
+      color: #00d4ff;
+      font-size: 10px; /* Small text */
+      line-height: 1.2;
+      font-weight: 600;
+      text-shadow: 0 0 2px rgba(0,0,0,0.8);
+    }
+
+    body.dark-mode .quick-info-box {
+      border-color: rgba(0, 240, 255, 0.4);
+      background: rgba(0, 0, 0, 0.7);
+    }
+    /* --- End Updated Section --- */
 
     /* Side Menu */
     .side-menu {
@@ -375,7 +467,168 @@
       color: #fff;
     }
 
-    /* Popup Styles */
+    /* Instruction Popup */
+    .instruction-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .instruction-popup.show {
+      display: flex;
+    }
+
+    .instruction-box {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 25px;
+      max-width: 320px;
+      width: 85%;
+      text-align: left;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      animation: instructionSlide 0.3s ease-out;
+    }
+
+    body.dark-mode .instruction-box {
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    @keyframes instructionSlide {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .instruction-box h3 {
+      font-size: 20px;
+      color: #4285F4;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    body.dark-mode .instruction-box h3 {
+      color: #5A9DFF;
+    }
+
+    .instruction-step {
+      margin-bottom: 18px;
+      padding: 12px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      border-left: 4px solid #4285F4;
+    }
+
+    body.dark-mode .instruction-step {
+      background: #1a1a1a;
+      border-left-color: #5A9DFF;
+    }
+
+    .step-number {
+      font-weight: 700;
+      color: #4285F4;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    body.dark-mode .step-number {
+      color: #5A9DFF;
+    }
+
+    .step-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    body.dark-mode .step-text {
+      color: #ccc;
+    }
+
+    .close-instruction {
+      width: 100%;
+      padding: 12px;
+      background: #4285F4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    .close-instruction:hover {
+      background: #3367D6;
+    }
+
+    /* Full Screen Star Animation */
+    .star-animation-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .star-animation-overlay.show {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    .animation-text {
+      font-size: 24px;
+      color: white;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .animated-stars {
+      display: flex;
+      gap: 15px;
+      font-size: 50px;
+    }
+
+    .animated-star {
+      opacity: 0.3;
+      transition: all 0.5s ease;
+      filter: grayscale(100%);
+    }
+
+    .animated-star.light {
+      opacity: 1;
+      filter: grayscale(0%);
+      animation: starGlow 0.5s ease;
+    }
+
+    @keyframes starGlow {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    /* Copy Warning Popup */
     .popup-overlay {
       display: none;
       position: fixed;
@@ -427,17 +680,23 @@
 </head>
 <body>
 
-  <!-- Hamburger Menu Button - Only 3 Lines -->
   <button class="menu-btn" id="menuBtn">
     <span></span>
     <span></span>
     <span></span>
   </button>
 
-  <!-- Menu Overlay -->
+  <button class="instruction-btn" id="instructionBtn"></button>
+
+  <div class="quick-info-box" id="quickInfoBox">
+    <div class="info-step">Step 1: Click on copy text</div>
+    <div class="info-step">Step 2: Click on google review</div>
+    <div class="info-step">Step 3: Give 5 star</div>
+    <div class="info-step">Step 4: Paste the review</div>
+  </div>
+
   <div class="menu-overlay" id="menuOverlay"></div>
 
-  <!-- Side Menu -->
   <div class="side-menu" id="sideMenu">
     <div class="menu-content">
       <h3>Policy & Information</h3>
@@ -453,7 +712,6 @@
       <p>We strictly ensure that all brands we promote are trustworthy, reliable, and operate professionally.</p>
       <p>Our goal is to support genuine brands while maintaining honesty, transparency, and fairness for consumers</p>
       
-      <!-- Dark/Light Mode Toggle -->
       <div class="mode-toggle">
         <h4>Theme</h4>
         <div class="toggle-switch">
@@ -465,6 +723,40 @@
           <span>Dark</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="instruction-popup" id="instructionPopup">
+    <div class="instruction-box">
+      <h3>📋 Detailed Instructions</h3>
+      
+      <div class="instruction-step">
+        <div class="step-number">Step 1:</div>
+        <div class="step-text">Copy the text from the review box below</div>
+      </div>
+
+      <div class="instruction-step">
+        <div class="step-number">Step 2:</div>
+        <div class="step-text">Click on "Google Reviews" button</div>
+      </div>
+
+      <div class="instruction-step">
+        <div class="step-number">Step 3:</div>
+        <div class="step-text">Give 5 stars ⭐⭐⭐⭐⭐ and paste the text in the review box</div>
+      </div>
+
+      <button class="close-instruction" id="closeInstruction">Got it!</button>
+    </div>
+  </div>
+
+  <div class="star-animation-overlay" id="starAnimationOverlay">
+    <div class="animation-text">Give 5 Stars and Paste the Text</div>
+    <div class="animated-stars">
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
     </div>
   </div>
 
@@ -504,12 +796,50 @@
     const sideMenu = document.getElementById('sideMenu');
     const menuOverlay = document.getElementById('menuOverlay');
     const darkModeToggle = document.getElementById('darkModeToggle');
+    const instructionBtn = document.getElementById('instructionBtn');
+    const instructionPopup = document.getElementById('instructionPopup');
+    const closeInstruction = document.getElementById('closeInstruction');
+    const starAnimationOverlay = document.getElementById('starAnimationOverlay');
+    const quickInfoBox = document.getElementById('quickInfoBox');
 
     let currentReviewId = null;
     let copyClicked = false;
     let reviewReserved = false;
+    let infoBoxShown = false;
 
-    /* Menu Toggle - Click button pe open/close */
+    /* Auto-show info box on page load */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        quickInfoBox.classList.add('show');
+        infoBoxShown = true;
+        
+        // Hide after 4 seconds as requested
+        setTimeout(() => {
+          quickInfoBox.classList.remove('show');
+        }, 4000);
+      }, 500);
+    });
+
+    /* Instruction Button - Toggle info box */
+    instructionBtn.addEventListener('click', () => {
+      if (quickInfoBox.classList.contains('show')) {
+        quickInfoBox.classList.remove('show');
+      } else {
+        quickInfoBox.classList.add('show');
+      }
+    });
+
+    closeInstruction.addEventListener('click', () => {
+      instructionPopup.classList.remove('show');
+    });
+
+    instructionPopup.addEventListener('click', (e) => {
+      if (e.target === instructionPopup) {
+        instructionPopup.classList.remove('show');
+      }
+    });
+
+    /* Menu Toggle */
     menuBtn.addEventListener('click', () => {
       const isOpen = sideMenu.classList.contains('open');
       
@@ -522,7 +852,6 @@
       }
     });
 
-    /* Overlay click pe close */
     menuOverlay.addEventListener('click', () => {
       sideMenu.classList.remove('open');
       menuOverlay.classList.remove('show');
@@ -539,7 +868,6 @@
       }
     });
 
-    /* Load saved dark mode preference */
     if (localStorage.getItem('darkMode') === 'enabled') {
       document.body.classList.add('dark-mode');
       darkModeToggle.checked = true;
@@ -563,6 +891,25 @@
     function showPopup() {
       popupOverlay.classList.add('show');
       setTimeout(() => popupOverlay.classList.remove('show'), 2000);
+    }
+
+    /* Star Animation Function */
+    function showStarAnimation() {
+      starAnimationOverlay.classList.add('show');
+      
+      const stars = document.querySelectorAll('.animated-star');
+      
+      stars.forEach((star, index) => {
+        setTimeout(() => {
+          star.classList.add('light');
+        }, index * 400);
+      });
+
+      setTimeout(() => {
+        starAnimationOverlay.classList.remove('show');
+        stars.forEach(star => star.classList.remove('light'));
+        window.open('https://reviewthis.biz/9493e7a0', '_blank');
+      }, 3000);
     }
 
     async function fetchReview() {
@@ -633,7 +980,7 @@
         reviewReserved = false;
       }
 
-      window.open('https://reviewthis.biz/9493e7a0', '_blank');
+      showStarAnimation();
     });
 
     window.addEventListener('beforeunload', () => {
