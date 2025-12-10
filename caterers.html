@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@600;800&display=swap" rel="stylesheet">
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,11 +10,11 @@
     html, body {
       height: 100%;
       width: 100%;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     body {
-      font-family: 'Saira', Arial, Helvetica, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       background-image: url('https://raw.githubusercontent.com/socialinfi321-svgph/caterers-master/main/1763405516551.jpg');
       background-size: cover;
       background-position: center;                      
@@ -25,8 +24,7 @@
       align-items: center;
       justify-content: flex-start;
       text-align: center;
-      padding-top: 50px; /* Reduced padding to fit new logo */
-      padding-bottom: 50px;
+      padding-top: 197px;
       transition: background-color 0.3s, filter 0.3s;
     }
 
@@ -45,56 +43,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
-    /* --- NEW: Logo Section --- */
-    .logo-section {
-        position: relative;
-        z-index: 10;
-        margin-bottom: 40px; /* Space before subtitle */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .logo-icon {
-        font-size: 40px;
-        color: #00d4ff;
-        filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.9));
-        line-height: 1;
-        margin-bottom: 5px;
-        font-weight: 800;
-        animation: pulse 1.5s infinite alternate;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.5)); }
-      100% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(0, 212, 255, 1)); }
-    }
-
-    .logo-text {
-        font-size: 28px;
-        font-weight: 800;
-        color: #fff;
-        text-shadow: 0 0 8px #000;
-        letter-spacing: 1px;
-    }
-
-    .logo-underline {
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, #00d4ff, transparent);
-        background-size: 200% 100%;
-        animation: shimmer 3s infinite linear;
-        border-radius: 1.5px;
-        margin-top: 5px;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -100% 0; }
-      100% { background-position: 100% 0; }
-    }
-    /* --- End New Logo Section --- */
-
 
     /* Hamburger Menu Button */
     .menu-btn {
@@ -156,7 +104,7 @@
       filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.8));
     }
 
-    /* Quick Info Box */
+    /* --- UPDATED: Quick Info Box (Vertical 4 Steps) --- */
     .quick-info-box {
       position: fixed;
       bottom: 75px; 
@@ -164,6 +112,7 @@
       width: auto;
       max-width: 200px;
       
+      /* Transparency and Blur */
       background: rgba(10, 22, 40, 0.65); 
       backdrop-filter: blur(4px);
       
@@ -177,6 +126,7 @@
       pointer-events: none;
       transition: all 0.4s ease;
       
+      /* Flexbox for Vertical Steps */
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -205,7 +155,7 @@
 
     .info-step {
       color: #00d4ff;
-      font-size: 10px; 
+      font-size: 10px; /* Small text */
       line-height: 1.2;
       font-weight: 600;
       text-shadow: 0 0 2px rgba(0,0,0,0.8);
@@ -215,61 +165,186 @@
       border-color: rgba(0, 240, 255, 0.4);
       background: rgba(0, 0, 0, 0.7);
     }
-    
-    /* Side Menu (Styling not changed here for brevity) */
-    .side-menu { /* ... (menu styles) */ }
-    .side-menu.open { /* ... */ }
-    .menu-overlay { /* ... */ }
-    .menu-overlay.show { /* ... */ }
-    
-    /* Dark Mode Toggle (Styling not changed here for brevity) */
-    .mode-toggle { /* ... */ }
+    /* --- End Updated Section --- */
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 280px;
+      height: 100%;
+      background: white;
+      z-index: 1000;
+      box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+      transition: left 0.3s ease;
+      overflow-y: auto;
+      padding: 80px 25px 25px 25px;
+    }
+
+    body.dark-mode .side-menu {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .side-menu.open {
+      left: 0;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    .menu-overlay.show {
+      display: block;
+    }
+
+    .menu-content h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    body.dark-mode .menu-content h3 {
+      color: #fff;
+    }
+
+    .menu-content p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    body.dark-mode .menu-content p {
+      color: #ccc;
+    }
+
+    /* Dark/Light Mode Toggle */
+    .mode-toggle {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+
+    body.dark-mode .mode-toggle {
+      border-top: 1px solid #444;
+    }
+
+    .mode-toggle h4 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    body.dark-mode .mode-toggle h4 {
+      color: #fff;
+    }
+
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toggle-switch span {
+      font-size: 14px;
+      color: #666;
+    }
+
+    body.dark-mode .toggle-switch span {
+      color: #aaa;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
 
     .subtitle {
-      font-size: 18px;
-      color: #fff;
-      margin-bottom: 20px;
-      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 700;
       position: relative;
       z-index: 1;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     body.dark-mode .subtitle {
       color: #fff;
     }
 
-    /* --- UPDATED: Review Box Style --- */
     .review-box {
+      position: absolute;
       width: 95%;
       max-width: 650px;
       max-height: 100;
-      background: rgba(255, 255, 255, 0.9); /* Slightly more opaque */
-      border-radius: 18px;
-      padding: 25px 25px 55px 25px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #1a1a1a;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 25px;
+      padding: 20px 24px 50px 24px;
+      font-size: 13px;
+      font-family: 'Saira', Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      color: #333;
       line-height: 1.5;
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); /* Blue Glow */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       text-align: left;
       position: relative;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       z-index: 1;
-      transition: all 0.3s ease-in-out;
-      border: 1px solid #00d4ff;
-    }
-
-    .review-box:hover {
-        transform: translateY(-5px) scale(1.01);
-        box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5); /* Stronger glow on hover */
     }
 
     body.dark-mode .review-box {
-      background: rgba(40, 40, 40, 0.95);
+      background: rgba(40, 40, 40, 0.85);
       color: #fff;
-      border-color: #00d4ff;
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.5); 
     }
 
     .text-limit {
@@ -283,69 +358,51 @@
       font-weight: bold;
       cursor: pointer;
       user-select: none;
-      margin-top: 5px;
+      margin-top: 3px;
       display: inline-block;
-      color: #1976d2;
-      transition: color 0.3s;
-    }
-    
-    body.dark-mode .expand-dots {
-        color: #5A9DFF;
-    }
-
-    .expand-dots:hover {
-        color: #0d47a1;
     }
 
     .copy-btn {
       position: absolute;
-      bottom: 15px;
-      left: 25px;
+      bottom: 10px;
+      left: 24px;
       background: #1976d2;
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
-      font-weight: 700;
-      font-size: 16px;
+      font-weight: 600;
+      font-size: 14px;
       transition: 0.3s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
     .copy-btn:hover {
       background: #0d47a1;
-      transform: scale(1.05);
     }
 
     .google-btn {
       display: inline-block;
-      margin-top: 20px;
-      border-radius: 10px;
+      margin-top: 35px;
+      border-radius: 8px;
       text-decoration: none;
       color: #fff;
-      font-weight: 700;
-      font-size: 16px;
-      padding: 12px 25px;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 11px 20px;
       background: linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335);
       background-size: 500% 500%;
       animation: colorShift 2s infinite alternate;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 10px rgba(66, 133, 244, 0.6);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.25), 0 0 8px rgba(66, 133, 244, 0.3);
       cursor: pointer;
       transition: 0.3s;
       position: relative;
       z-index: 1;
     }
 
-    .google-btn:hover {
-        transform: scale(1.05);
-    }
-
     .google-btn.disabled {
       cursor: not-allowed;
-      opacity: 0.7;
-      box-shadow: none;
-      filter: grayscale(100%);
     }
 
     @keyframes colorShift {
@@ -356,59 +413,269 @@
     .star-section {
       margin-top: 40px;
       text-align: center;
-      color: #fff;
+      color: #000;
       position: relative;
       z-index: 1;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    body.dark-mode .star-section {
+      color: #fff;
     }
 
     .star-section .top-text {
       display: block;
-      font-size: 12px;
-      margin-bottom: 5px;
+      font-size: 10px;
+      margin-bottom: 2px;
+      color: #000;
+      font-weight: 500;
+    }
+
+    body.dark-mode .star-section .top-text {
       color: #fff;
-      font-weight: 700;
     }
 
     .stars {
-      font-size: 30px;
-      letter-spacing: 5px;
+      font-size: 22px;
+      letter-spacing: 3px;
       margin: 0;
-      filter: drop-shadow(0 0 5px yellow);
     }
 
     .star-section .bottom-text {
       display: block;
-      font-size: 12px;
-      margin-top: 5px;
+      font-size: 10px;
+      margin-top: 2px;
+      color: #000;
+      font-weight: 500;
+    }
+
+    body.dark-mode .star-section .bottom-text {
       color: #fff;
-      font-weight: 700;
     }
 
     .thanks {
       margin-top: 30px;
-      font-size: 30px;
+      font-size: 28px;
       font-family: 'Brush Script MT', cursive;
-      color: #fff;
+      color: #000;
       text-align: center;
       font-weight: 700;
       position: relative;
       z-index: 1;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    /* Instruction Popup (Styling not changed here for brevity) */
-    .instruction-popup { /* ... */ }
-    .instruction-popup.show { /* ... */ }
+    body.dark-mode .thanks {
+      color: #fff;
+    }
 
-    /* Star Animation Overlay (Styling not changed here for brevity) */
-    .star-animation-overlay { /* ... */ }
-    .star-animation-overlay.show { /* ... */ }
+    /* Instruction Popup */
+    .instruction-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
 
-    /* Copy Warning Popup (Styling not changed here for brevity) */
-    .popup-overlay { /* ... */ }
-    .popup-overlay.show { /* ... */ }
-    
+    .instruction-popup.show {
+      display: flex;
+    }
+
+    .instruction-box {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 25px;
+      max-width: 320px;
+      width: 85%;
+      text-align: left;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      animation: instructionSlide 0.3s ease-out;
+    }
+
+    body.dark-mode .instruction-box {
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    @keyframes instructionSlide {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .instruction-box h3 {
+      font-size: 20px;
+      color: #4285F4;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    body.dark-mode .instruction-box h3 {
+      color: #5A9DFF;
+    }
+
+    .instruction-step {
+      margin-bottom: 18px;
+      padding: 12px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      border-left: 4px solid #4285F4;
+    }
+
+    body.dark-mode .instruction-step {
+      background: #1a1a1a;
+      border-left-color: #5A9DFF;
+    }
+
+    .step-number {
+      font-weight: 700;
+      color: #4285F4;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    body.dark-mode .step-number {
+      color: #5A9DFF;
+    }
+
+    .step-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    body.dark-mode .step-text {
+      color: #ccc;
+    }
+
+    .close-instruction {
+      width: 100%;
+      padding: 12px;
+      background: #4285F4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    .close-instruction:hover {
+      background: #3367D6;
+    }
+
+    /* Full Screen Star Animation */
+    .star-animation-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .star-animation-overlay.show {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    .animation-text {
+      font-size: 24px;
+      color: white;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .animated-stars {
+      display: flex;
+      gap: 15px;
+      font-size: 50px;
+    }
+
+    .animated-star {
+      opacity: 0.3;
+      transition: all 0.5s ease;
+      filter: grayscale(100%);
+    }
+
+    .animated-star.light {
+      opacity: 1;
+      filter: grayscale(0%);
+      animation: starGlow 0.5s ease;
+    }
+
+    @keyframes starGlow {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    /* Copy Warning Popup */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-overlay.show {
+      display: flex;
+    }
+
+    .popup-box {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 280px;
+      width: 80%;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      animation: popupSlide 0.25s ease-out;
+    }
+
+    body.dark-mode .popup-box {
+      background: #2a2a2a;
+    }
+
+    @keyframes popupSlide {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .popup-message {
+      font-size: 15px;
+      color: #333;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    body.dark-mode .popup-message {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -429,24 +696,74 @@
   </div>
 
   <div class="menu-overlay" id="menuOverlay"></div>
+
   <div class="side-menu" id="sideMenu">
+    <div class="menu-content">
+      <h3>Policy & Information</h3>
+      <p>All reviews are voluntary, and for feedback purposes only.</p>
+      <p>By using this page, you agree that reviews reflect personal experience only.</p>
+      <p>.....................................</p>
+      <p>This is a paid review promotion designed to help both new and established brands strengthen their market visibility and consumer trust.</p>
+      <p>In today's competitive environment, obtaining genuine reviews has become increasingly difficult, even for brands that provide excellent products and services.</p>
+      <p>Through this promotional service, we help highlight brands that are performing well</p>
+      <p>but are not receiving sufficient customer feedback due to market competition or being newly launched.</p>
+      <p>We also support older, established brands in maintaining their credibility and trust among consumers</p>
+      <p>by ensuring continuous engagement through transparent, paid promotional reviews.</p>
+      <p>We strictly ensure that all brands we promote are trustworthy, reliable, and operate professionally.</p>
+      <p>Our goal is to support genuine brands while maintaining honesty, transparency, and fairness for consumers</p>
+      
+      <div class="mode-toggle">
+        <h4>Theme</h4>
+        <div class="toggle-switch">
+          <span>Light</span>
+          <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
+          <span>Dark</span>
+        </div>
+      </div>
     </div>
+  </div>
 
   <div class="instruction-popup" id="instructionPopup">
+    <div class="instruction-box">
+      <h3>📋 Detailed Instructions</h3>
+      
+      <div class="instruction-step">
+        <div class="step-number">Step 1:</div>
+        <div class="step-text">Copy the text from the review box below</div>
+      </div>
+
+      <div class="instruction-step">
+        <div class="step-number">Step 2:</div>
+        <div class="step-text">Click on "Google Reviews" button</div>
+      </div>
+
+      <div class="instruction-step">
+        <div class="step-number">Step 3:</div>
+        <div class="step-text">Give 5 stars ⭐⭐⭐⭐⭐ and paste the text in the review box</div>
+      </div>
+
+      <button class="close-instruction" id="closeInstruction">Got it!</button>
     </div>
+  </div>
 
   <div class="star-animation-overlay" id="starAnimationOverlay">
+    <div class="animation-text">Give 5 Stars and Paste the Text</div>
+    <div class="animated-stars">
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
+      <span class="animated-star">⭐</span>
     </div>
-
-  <div class="logo-section">
-      <div class="logo-icon">∞</div>
-      <div class="logo-text">Social Infinity</div>
-      <div class="logo-underline"></div>
   </div>
+
   <div class="subtitle">To give review, copy the text below 👇</div>
 
   <div class="review-box" id="reviewBox">
-    <p id="reviewText" class="text-limit">Fetching review...</p>
+    <p id="reviewText" class="text-limit">Loading review...</p>
     <span id="expandDots" class="expand-dots">.........</span>
     <button class="copy-btn" id="copyBtn">Copy Text</button>
   </div>
@@ -468,13 +785,7 @@
   </div>
 
 <script>
-    // NOTE: If this API URL is not working, you MUST re-deploy your Google Apps Script
-    // and ensure "Who has access" is set to "Anyone, even anonymous".
-    const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwm0nRKWlgy6d0fQ56GRqJba31rjE3_Ar_cEHtZBXC62qXPkPNyaIlT9o0DbJ33QHq_/exec';
-
-    // --- FALLBACK REVIEW ---
-    const FALLBACK_REVIEW = "I recently used this service/product and was truly impressed by their professionalism and the quality of their work. Everything was handled perfectly, and I highly recommend them. Great experience! ⭐⭐⭐⭐⭐";
-    // -----------------------
+    const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxmXrp8e5PZf344YG9LXj_lTIzMsvq2wn-Ufi2YE5D7W0_qGzKgRvOT1VfQHw1qCeer/exec';
 
     const reviewText = document.getElementById('reviewText');
     const expandDots = document.getElementById('expandDots');
@@ -495,7 +806,6 @@
     let copyClicked = false;
     let reviewReserved = false;
     let infoBoxShown = false;
-    let expanded = false;
 
     /* Auto-show info box on page load */
     window.addEventListener('load', () => {
@@ -510,11 +820,10 @@
       }, 500);
     });
 
-    /* Instruction Button - Toggle info box (and full detailed popup) */
+    /* Instruction Button - Toggle info box */
     instructionBtn.addEventListener('click', () => {
       if (quickInfoBox.classList.contains('show')) {
         quickInfoBox.classList.remove('show');
-        instructionPopup.classList.add('show'); // Show detailed instruction
       } else {
         quickInfoBox.classList.add('show');
       }
@@ -565,6 +874,8 @@
     }
 
     /* Expand / Collapse */
+    let expanded = false;
+
     expandDots.addEventListener("click", () => {
       if (!expanded) {
         reviewText.classList.remove("text-limit");
@@ -607,23 +918,15 @@
         const textData = await response.text();
 
         let data;
-        try { 
-            data = JSON.parse(textData); 
-        }
-        catch (e) {
-             // Handle case where script returns simple text (like an error message)
-            if (textData.trim().length > 10) {
-                 reviewText.innerText = textData.trim(); // Show the script error
-            } else {
-                 reviewText.innerText = FALLBACK_REVIEW; // Use fallback if API failed
-            }
-            reviewText.classList.add("text-limit");
-            setupCopyButton(reviewText.innerText);
-            expandDots.style.display = "inline-block";
-            return;
+        try { data = JSON.parse(textData); }
+        catch {
+          reviewText.innerText = textData.trim();
+          reviewText.classList.add("text-limit");
+          setupCopyButton(textData.trim());
+          return;
         }
 
-        if (data && data.review) {
+        if (data.review) {
           currentReviewId = data.id;
           reviewReserved = true;
 
@@ -633,25 +936,13 @@
 
           setupCopyButton(data.review);
 
-          // Release review if not copied within 60 seconds
           setTimeout(() => {
             if (!copyClicked && reviewReserved) releaseReview();
           }, 60000);
-        } else {
-            // Use fallback if response is valid JSON but no review found
-            reviewText.innerText = FALLBACK_REVIEW;
-            reviewText.classList.add("text-limit");
-            setupCopyButton(FALLBACK_REVIEW);
-            expandDots.style.display = "inline-block";
         }
 
-      } catch (e) {
-        // Use fallback if the fetch request itself failed (network, CORS, etc.)
-        console.error("Fetch error:", e);
-        reviewText.innerText = FALLBACK_REVIEW;
-        reviewText.classList.add("text-limit");
-        setupCopyButton(FALLBACK_REVIEW);
-        expandDots.style.display = "inline-block";
+      } catch {
+        reviewText.innerText = "Error fetching review.";
       }
     }
 
@@ -662,21 +953,12 @@
     }
 
     function setupCopyButton(textToCopy) {
-      // Re-create the copy button to ensure only one listener is active
-      const oldBtn = document.getElementById('copyBtn');
-      const newBtn = oldBtn.cloneNode(true);
-      oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+      const newBtn = copyBtn.cloneNode(true);
+      copyBtn.parentNode.replaceChild(newBtn, copyBtn);
 
       newBtn.addEventListener("click", async () => {
-        try {
-            await navigator.clipboard.writeText(textToCopy);
-            newBtn.innerText = "Copied ✓";
-        } catch (err) {
-            console.error('Could not copy text: ', err);
-            newBtn.innerText = "Copy Failed!";
-            setTimeout(() => newBtn.innerText = "Copy Text", 2000);
-            return;
-        }
+        await navigator.clipboard.writeText(textToCopy);
+        newBtn.innerText = "Copied ✓";
 
         copyClicked = true;
         googleBtn.classList.remove('disabled');
@@ -698,17 +980,14 @@
         reviewReserved = false;
       }
 
-      // Start star animation and then redirect
       showStarAnimation();
     });
 
     window.addEventListener('beforeunload', () => {
-      // Use sendBeacon to try and release the review if the user closes the page before copying
       if (!copyClicked && reviewReserved)
         navigator.sendBeacon(`${SHEET_API_URL}?action=release&id=${currentReviewId}`);
     });
 
-    // Start fetching the review on load
     fetchReview();
 </script>
 
